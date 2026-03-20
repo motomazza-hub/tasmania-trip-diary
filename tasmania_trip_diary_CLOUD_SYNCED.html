@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasmania Motorcycle Trip Diary - CLOUD SYNCED - March 27-April 6, 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .trip-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-box .number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-box .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .calendar-section {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            border-bottom: 3px solid #e9ecef;
+        }
+        
+        .calendar-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .calendar-day {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-day.ferry {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #5a67d8;
+        }
+        
+        .calendar-day.camping {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .calendar-day.hotel {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        
+        .calendar-day .day-num {
+            font-size: 0.8em;
+            opacity: 0.7;
+            display: block;
+        }
+        
+        .calendar-day .day-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            display: block;
+            margin: 5px 0;
+        }
+        
+        .calendar-day .day-type {
+            font-size: 0.75em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .day-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 6px solid #3498db;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        .day-card.camping {
+            border-left-color: #27ae60;
+        }
+        
+        .day-card.hotel {
+            border-left-color: #f39c12;
+        }
+        
+        .day-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .day-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #3498db;
+            margin-right: 20px;
+            min-width: 80px;
+        }
+        
+        .day-card.camping .day-number {
+            color: #27ae60;
+        }
+        
+        .day-card.hotel .day-number {
+            color: #f39c12;
+        }
+        
+        .day-info {
+            flex: 1;
+        }
+        
+        .day-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .day-date {
+            color: #7f8c8d;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        
+        .day-route {
+            color: #34495e;
+            font-size: 0.95em;
+        }
+        
+        .route-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .info-badge {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .info-badge .editable-badge {
+            padding: 2px 5px;
+            border-radius: 3px;
+            border: 2px dashed transparent;
+            cursor: text;
+            transition: all 0.2s;
+        }
+        
+        .info-badge .editable-badge:hover {
+            background: #f0f8ff;
+            border-color: #3498db;
+        }
+        
+        .info-badge .editable-badge:focus {
+            outline: none;
+            background: #fff;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .timeline-container {
+            margin-bottom: 15px;
+        }
+        
+        .timeline-item {
+            background: white;
+            padding: 12px 15px;
+            padding-right: 45px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            position: relative;
+            transition: all 0.2s;
+        }
+        
+        .timeline-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .timeline-item:hover .delete-btn {
+            opacity: 1;
+        }
+        
+        .delete-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.2s;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .delete-btn:hover {
+            background: #c82333;
+            transform: translateY(-50%) scale(1.15);
+        }
+        
+        .time {
+            color: #3498db;
+            font-weight: bold;
+            min-width: 100px;
+        }
+        
+        .activity {
+            flex: 1;
+        }
+        
+        .editable-time,
+        .editable-activity {
+            padding: 3px 6px;
+            border-radius: 4px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            cursor: text;
+        }
+        
+        .editable-time:hover,
+        .editable-activity:hover {
+            background: #f0f8ff;
+            border-color: #e0e7ff;
+        }
+        
+        .editable-time:focus,
+        .editable-activity:focus {
+            outline: none;
+            background: #fff;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .editable-time {
+            background: #e8f4f8;
+        }
+        
+        .editable-activity {
+            background: #f8f9fa;
+        }
+        
+        .day-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #dee2e6;
+        }
+        
+        .add-line-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        
+        .add-line-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        
+        .inline-booking {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .inline-booking:hover {
+            border-color: #2196f3;
+            box-shadow: 0 4px 8px rgba(33, 150, 243, 0.2);
+        }
+        
+        .inline-booking.camping-booking {
+            border-left: 5px solid #27ae60;
+            background: #f1f8f4;
+        }
+        
+        .inline-booking.hotel-booking {
+            border-left: 5px solid #f39c12;
+            background: #fff9f0;
+        }
+        
+        .booking-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #2196f3;
+            flex-shrink: 0;
+        }
+        
+        .booking-checkbox:checked + label {
+            opacity: 0.6;
+        }
+        
+        .booking-checkbox:checked + label .editable-field {
+            text-decoration: line-through;
+        }
+        
+        .editable-field {
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 2px dashed #dee2e6;
+            display: inline-block;
+            min-width: 250px;
+            cursor: text;
+            transition: all 0.2s;
+        }
+        
+        .editable-field:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+        
+        .editable-field:focus {
+            outline: none;
+            background: white;
+            border-color: #2196f3;
+            border-style: solid;
+        }
+        
+        .camping-field {
+            background: #e8f5e9;
+            border-color: #81c784;
+        }
+        
+        .camping-field:hover {
+            background: #c8e6c9;
+        }
+        
+        .camping-field:focus {
+            background: white;
+            border-color: #27ae60;
+        }
+        
+        .hotel-field {
+            background: #fff3e0;
+            border-color: #ffb74d;
+        }
+        
+        .hotel-field:hover {
+            background: #ffe0b2;
+        }
+        
+        .hotel-field:focus {
+            background: white;
+            border-color: #f39c12;
+        }
+        
+        .ferry-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 15px;
+        }
+        
+        .ferry-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .ferry-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .ferry-card {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .ferry-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .info-section {
+            background: #e8f5e9;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #4caf50;
+        }
+        
+        .info-section h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        .day-note {
+            background: #fff3e0;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .save-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        
+        .save-indicator.show {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .day-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .day-number {
+                margin-bottom: 10px;
+            }
+            .timeline-item {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .time {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="save-indicator" id="saveIndicator">✓ Saved!</div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏍️ Tasmania Motorcycle Trip Diary - ☁️ CLOUD SYNCED</h1>
+            <div class="subtitle">March 27 - April 6, 2026 | 9 Days in Tasmania</div>
+            <div class="trip-stats">
+                <div class="stat-box">
+                    <span class="number">~1,900</span>
+                    <span class="label">Total Kilometers</span>
+                </div>
+                <div class="stat-box">
+                    <span class="number">9</span>
+                    <span class="label">Days Riding</span>
+                </div>
+                <div class="stat-box">
+                    <span class="number"><span id="nights-booked">0</span>/8</span>
+                    <span class="label">Nights Booked</span>
+                </div>
+                <div class="stat-box">
+                    <span class="number">100%</span>
+                    <span class="label">Sealed Roads</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trip Calendar -->
+        <div class="calendar-section">
+            <h2>📅 Trip Calendar Overview</h2>
+            <p style="color: #6c757d; font-size: 0.95em; margin-bottom: 15px;">✏️ All fields editable | ❌ Hover to delete lines | ➕ Click to add activities</p>
+            <div class="calendar-grid">
+                <div class="calendar-day ferry">
+                    <span class="day-num">Mar 27</span>
+                    <span class="day-name">Fri</span>
+                    <span class="day-type">🚢 Ferry</span>
+                </div>
+                <div class="calendar-day camping">
+                    <span class="day-num">Mar 28</span>
+                    <span class="day-name">Sat</span>
+                    <span class="day-type">⛺ Bruny</span>
+                </div>
+                <div class="calendar-day camping">
+                    <span class="day-num">Mar 29</span>
+                    <span class="day-name">Sun</span>
+                    <span class="day-type">⛺ Bruny</span>
+                </div>
+                <div class="calendar-day hotel">
+                    <span class="day-num">Mar 30</span>
+                    <span class="day-name">Mon</span>
+                    <span class="day-type">🏨 Strahan</span>
+                </div>
+                <div class="calendar-day camping">
+                    <span class="day-num">Mar 31</span>
+                    <span class="day-name">Tue</span>
+                    <span class="day-type">⛺ Cradle</span>
+                </div>
+                <div class="calendar-day camping">
+                    <span class="day-num">Apr 1</span>
+                    <span class="day-name">Wed</span>
+                    <span class="day-type">⛺ Cradle</span>
+                </div>
+                <div class="calendar-day hotel">
+                    <span class="day-num">Apr 2</span>
+                    <span class="day-name">Thu</span>
+                    <span class="day-type">🏨 Launceston</span>
+                </div>
+                <div class="calendar-day camping">
+                    <span class="day-num">Apr 3</span>
+                    <span class="day-name">Fri</span>
+                    <span class="day-type">⛺ Bicheno</span>
+                </div>
+                <div class="calendar-day hotel">
+                    <span class="day-num">Apr 4</span>
+                    <span class="day-name">Sat</span>
+                    <span class="day-type">🏨 Richmond</span>
+                </div>
+                <div class="calendar-day ferry">
+                    <span class="day-num">Apr 5</span>
+                    <span class="day-name">Sun</span>
+                    <span class="day-type">🚢 Ferry</span>
+                </div>
+                <div class="calendar-day">
+                    <span class="day-num">Apr 6</span>
+                    <span class="day-name">Mon</span>
+                    <span class="day-type">⛴️ Arrive</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ferry Info -->
+        <div class="ferry-section">
+            <h3>🚢 Spirit of Tasmania Ferry Bookings</h3>
+            <div class="ferry-details">
+                <div class="ferry-card">
+                    <h4>🚢 OUTBOUND - Friday, March 27</h4>
+                    <p><strong>Depart:</strong> Geelong 18:45 (6:45pm)</p>
+                    <p><strong>Arrive:</strong> Devonport 06:00 (Sat, Mar 28)</p>
+                    <p><strong>Cabin:</strong> 1 Inside Private Cabin</p>
+                    <p><strong>Vehicle:</strong> Motorcycle 2m (IXL91)</p>
+                </div>
+                <div class="ferry-card">
+                    <h4>🚢 RETURN - Sunday, April 5</h4>
+                    <p><strong>Depart:</strong> Devonport 18:45 (6:45pm)</p>
+                    <p><strong>Arrive:</strong> Geelong 06:00 (Mon, Apr 6)</p>
+                    <p><strong>Cabin:</strong> 1 Twin Bed Porthole Cabin</p>
+                    <p><strong>Vehicle:</strong> Motorcycle 2m (IXL91)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day by Day Itinerary -->
+        <div class="content">
+            <h2 style="color: #2c3e50; font-size: 2em; margin-bottom: 30px; text-align: center;">📖 Daily Trip Diary</h2>
+
+            <!-- Day 1 -->
+            <div class="day-card camping" data-day="1">
+                <div class="day-header">
+                    <div class="day-number">1</div>
+                    <div class="day-info">
+                        <div class="day-title">Devonport → Bruny Island</div>
+                        <div class="day-date">Saturday, March 28</div>
+                        <div class="day-route">📍 Devonport → Hobart → Richmond → Kettering → Bruny Island</div>
+                    </div>
+                </div>
+                <div class="route-info">
+                    <div class="info-badge">
+                        <span>🛣️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="1" data-badge="badge0">~290 km total</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⏱️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="1" data-badge="badge1">4-5 hours riding</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⛴️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="1" data-badge="badge2">Ferry: Before 6:40pm</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="1" data-field="time1">6:00am</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="1" data-field="act1">Arrive Devonport on Spirit of Tasmania</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="1" data-field="time2">Morning</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="1" data-field="act2">Ride Devonport → Hobart → Richmond (historic town) → Kettering</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="1" data-field="time3">Before 6:40pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="1" data-field="act3">Catch Bruny Island ferry from Kettering (runs every 20 min until 7pm, 15-20 min crossing)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="1" data-field="time4">Evening</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="1" data-field="act4">Arrive Bruny Island ~7pm, check into campground</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                </div>
+                <div class="day-controls">
+                    <button class="add-line-btn" onclick="addLine(1)">➕ Add Activity</button>
+                </div>
+                <div class="inline-booking camping-booking">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <input type="checkbox" id="night1" class="booking-checkbox" data-night="1">
+                        <label for="night1" style="flex: 1; cursor: pointer;">
+                            <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">🏕️ Night 1 Accommodation - CAMPING ⛺</div>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span contenteditable="true" class="editable-field camping-field" data-night="1" data-field="hotel">Captain Cook Holiday Park, Adventure Bay, Bruny Island</span>
+                                <span style="color: #27ae60; font-weight: 500;">Powered site - AUD $60/night</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day-card camping" data-day="2">
+                <div class="day-header">
+                    <div class="day-number">2</div>
+                    <div class="day-info">
+                        <div class="day-title">Bruny Island Full Day</div>
+                        <div class="day-date">Sunday, March 29</div>
+                        <div class="day-route">📍 Exploring Bruny Island</div>
+                    </div>
+                </div>
+                <div class="route-info">
+                    <div class="info-badge">
+                        <span>🛣️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="2" data-badge="badge0">~60 km exploring</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⏱️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="2" data-badge="badge1">Full day sightseeing</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="2" data-field="time1">9:30am</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="2" data-field="act1"><strong>Truganini Lookout (The Neck)</strong> - 30 min, 24/7 access, stunning isthmus views</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="2" data-field="time2">10:15am</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="2" data-field="act2"><strong>Bruny Island Cheese Co.</strong> - Cheese/beer tasting, lunch (1.5-2 hrs) - Kitchen 10:30am-3:30pm</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="2" data-field="time3">12:30pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="2" data-field="act3"><strong>Bruny Baker Bread Fridge</strong> - Fresh sourdough (honesty system, restocked 10am & 12pm)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="2" data-field="time4">2:00/2:30pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="2" data-field="act4"><strong>Cape Bruny Lighthouse Tour</strong> - Tours 9:30am-4pm, requires National Parks Pass (~$20/person), 30-45 min</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                </div>
+                <div class="day-controls">
+                    <button class="add-line-btn" onclick="addLine(2)">➕ Add Activity</button>
+                </div>
+                <div class="inline-booking camping-booking">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <input type="checkbox" id="night2" class="booking-checkbox" data-night="2">
+                        <label for="night2" style="flex: 1; cursor: pointer;">
+                            <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">🏕️ Night 2 Accommodation - CAMPING ⛺</div>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span contenteditable="true" class="editable-field camping-field" data-night="2" data-field="hotel">Captain Cook Holiday Park, Bruny Island</span>
+                                <span style="color: #27ae60; font-weight: 500;">Same campsite - AUD $60/night</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day-card hotel" data-day="3">
+                <div class="day-header">
+                    <div class="day-number">3</div>
+                    <div class="day-info">
+                        <div class="day-title">Bruny Island → Strahan</div>
+                        <div class="day-date">Monday, March 30</div>
+                        <div class="day-route">📍 Kettering → Russell Falls → Queenstown → Strahan</div>
+                    </div>
+                </div>
+                <div class="route-info">
+                    <div class="info-badge">
+                        <span>🛣️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="3" data-badge="badge0">~450 km</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⏱️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="3" data-badge="badge1">7-8 hours riding</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⛰️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="3" data-badge="badge2">99 Bends!</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="3" data-field="time1">7:00am</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="3" data-field="act1">Depart campground, catch 8:00-8:30am ferry to Kettering</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="3" data-field="time2">Morning</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="3" data-field="act2"><strong>Russell Falls (Mt Field NP)</strong> - 10 min walk, Tasmania's most photographed waterfall (requires National Parks Pass)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="3" data-field="time3">Afternoon</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="3" data-field="act3">Ride through <strong>"99 Bends"</strong> - Extremely winding mountain road (Derwent Bridge → Queenstown), allow 2 hours for 120km</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="3" data-field="time4">4-5pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="3" data-field="act4">Arrive Strahan on West Coast</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                </div>
+                <div class="day-controls">
+                    <button class="add-line-btn" onclick="addLine(3)">➕ Add Activity</button>
+                </div>
+                <div class="inline-booking hotel-booking">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <input type="checkbox" id="night3" class="booking-checkbox" data-night="3">
+                        <label for="night3" style="flex: 1; cursor: pointer;">
+                            <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">🏨 Night 3 Accommodation - HOTEL</div>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span contenteditable="true" class="editable-field hotel-field" data-night="3" data-field="hotel">Strahan Hotel</span>
+                                <span style="color: #f39c12; font-weight: 500;">West Coast harbor town</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="day-card camping" data-day="4">
+                <div class="day-header">
+                    <div class="day-number">4</div>
+                    <div class="day-info">
+                        <div class="day-title">Strahan → Cradle Mountain</div>
+                        <div class="day-date">Tuesday, March 31</div>
+                        <div class="day-route">📍 Strahan → Queenstown → Cradle Mountain</div>
+                    </div>
+                </div>
+                <div class="route-info">
+                    <div class="info-badge">
+                        <span>🛣️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="4" data-badge="badge0">~150 km</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⏱️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="4" data-badge="badge1">2.5 hours</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="4" data-field="time1">Morning</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="4" data-field="act1">Depart Strahan via Queenstown</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="4" data-field="time2">Early afternoon</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="4" data-field="act2">Arrive Cradle Mountain, check in Discovery Parks (across from Visitor Centre)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="4" data-field="time3">Afternoon</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="4" data-field="act3">Quick explore, settle in, prepare for full hiking day tomorrow</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                </div>
+                <div class="day-controls">
+                    <button class="add-line-btn" onclick="addLine(4)">➕ Add Activity</button>
+                </div>
+                <div class="inline-booking camping-booking">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <input type="checkbox" id="night4" class="booking-checkbox" data-night="4">
+                        <label for="night4" style="flex: 1; cursor: pointer;">
+                            <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">🏕️ Night 4 Accommodation - CAMPING ⛺</div>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span contenteditable="true" class="editable-field camping-field" data-night="4" data-field="hotel">Discovery Parks - Cradle Mountain</span>
+                                <span style="color: #27ae60; font-weight: 500;">Powered site across from Visitor Centre</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="day-card camping" data-day="5">
+                <div class="day-header">
+                    <div class="day-number">5</div>
+                    <div class="day-info">
+                        <div class="day-title">Cradle Mountain Hiking Day</div>
+                        <div class="day-date">Wednesday, April 1</div>
+                        <div class="day-route">📍 Full day at Cradle Mountain</div>
+                    </div>
+                </div>
+                <div class="route-info">
+                    <div class="info-badge">
+                        <span>🥾</span>
+                        <span contenteditable="true" class="editable-badge" data-day="5" data-badge="badge0">12 km hiking</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⏱️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="5" data-badge="badge1">5-6 hours total</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>🚌</span>
+                        <span contenteditable="true" class="editable-badge" data-day="5" data-badge="badge2">Shuttle required</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="5" data-field="time1">Morning</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="5" data-field="act1"><strong>Marions Lookout Hike</strong> - 6km return, 2.5-3 hrs, moderate. Route: Dove Lake → Lake Lilla → Wombat Pool → steep climb to spectacular panoramic views</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="5" data-field="time2">Lunch</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="5" data-field="act2">Break at Dove Lake</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="5" data-field="time3">Afternoon</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="5" data-field="act3"><strong>Dove Lake Circuit</strong> - 6km loop, 2-3 hrs, easy. Ballroom Forest (ancient rainforest), Historic Boatshed (1940), Glacier Rock, full boardwalk</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="5" data-field="time4">Evening</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="5" data-field="act4">Wombat spotting at Ronny Creek</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                </div>
+                <div class="day-controls">
+                    <button class="add-line-btn" onclick="addLine(5)">➕ Add Activity</button>
+                </div>
+                <div class="day-note"><strong>⚠️ Important: Requires National Parks Pass, shuttle bus tickets (vehicle access limited during operating hours)</strong></div>
+                <div class="inline-booking camping-booking">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <input type="checkbox" id="night5" class="booking-checkbox" data-night="5">
+                        <label for="night5" style="flex: 1; cursor: pointer;">
+                            <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">🏕️ Night 5 Accommodation - CAMPING ⛺</div>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span contenteditable="true" class="editable-field camping-field" data-night="5" data-field="hotel">Discovery Parks - Cradle Mountain</span>
+                                <span style="color: #27ae60; font-weight: 500;">Same campsite (no packing!)</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 6 -->
+            <div class="day-card hotel" data-day="6">
+                <div class="day-header">
+                    <div class="day-number">6</div>
+                    <div class="day-info">
+                        <div class="day-title">Cradle Mountain → Launceston</div>
+                        <div class="day-date">Thursday, April 2</div>
+                        <div class="day-route">📍 Cradle → Launceston → Cataract Gorge → Tamar Valley</div>
+                    </div>
+                </div>
+                <div class="route-info">
+                    <div class="info-badge">
+                        <span>🛣️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="6" data-badge="badge0">~150 km</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⏱️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="6" data-badge="badge1">2 hours riding</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>🍷</span>
+                        <span contenteditable="true" class="editable-badge" data-day="6" data-badge="badge2">Wine tasting</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="6" data-field="time1">8:00am</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="6" data-field="act1">Depart Cradle Mountain</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="6" data-field="time2">10:30am-1pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="6" data-field="act2"><strong>Cataract Gorge</strong> - Walk trails, ride world's longest single-span chairlift, suspension bridge, dramatic views (FREE entry, 15 min walk from city)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="6" data-field="time3">1:00-2:00pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="6" data-field="act3">Lunch in Launceston city center</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="6" data-field="time4">2:30-6:00pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="6" data-field="act4"><strong>Tamar Valley Wine Route</strong> - Multiple cellar doors, famous Pinot Noir & sparkling wines, beautiful vineyard views (30+ wineries)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                </div>
+                <div class="day-controls">
+                    <button class="add-line-btn" onclick="addLine(6)">➕ Add Activity</button>
+                </div>
+                <div class="inline-booking hotel-booking">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <input type="checkbox" id="night6" class="booking-checkbox" data-night="6">
+                        <label for="night6" style="flex: 1; cursor: pointer;">
+                            <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">🏨 Night 6 Accommodation - HOTEL</div>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span contenteditable="true" class="editable-field hotel-field" data-night="6" data-field="hotel">Launceston Hotel</span>
+                                <span style="color: #f39c12; font-weight: 500;">City center</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="day-card camping" data-day="7">
+                <div class="day-header">
+                    <div class="day-number">7</div>
+                    <div class="day-info">
+                        <div class="day-title">Bay of Fires → Bicheno</div>
+                        <div class="day-date">Friday, April 3</div>
+                        <div class="day-route">📍 Launceston → Bay of Fires → St Helens → Bicheno</div>
+                    </div>
+                </div>
+                <div class="route-info">
+                    <div class="info-badge">
+                        <span>🛣️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="7" data-badge="badge0">~230 km</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⏱️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="7" data-badge="badge1">3.5 hours riding</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>🏖️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="7" data-badge="badge2">Beach day</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="7" data-field="time1">8:00am</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="7" data-field="act1">Depart Launceston</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="7" data-field="time2">10am-1pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="7" data-field="act2"><strong>Bay of Fires</strong> - Orange granite rocks & white sand beaches, Binalong Bay, The Gardens beach walk, <strong>Swimcart Beach</strong> ✅, photos & exploration</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="7" data-field="time3">1:00-2:00pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="7" data-field="act3">Lunch in St Helens</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="7" data-field="time4">2:00-3:30pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="7" data-field="act4">Drive to Bicheno (~80km coastal route)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="7" data-field="time5">Afternoon</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="7" data-field="act5">Check in, optional Bicheno Blowhole, optional penguin tours (after dark)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                </div>
+                <div class="day-controls">
+                    <button class="add-line-btn" onclick="addLine(7)">➕ Add Activity</button>
+                </div>
+                <div class="inline-booking camping-booking">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <input type="checkbox" id="night7" class="booking-checkbox" data-night="7">
+                        <label for="night7" style="flex: 1; cursor: pointer;">
+                            <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">🏕️ Night 7 Accommodation - CAMPING ⛺</div>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span contenteditable="true" class="editable-field camping-field" data-night="7" data-field="hotel">Bicheno Campground</span>
+                                <span style="color: #27ae60; font-weight: 500;">Powered site, coastal town</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 8 -->
+            <div class="day-card hotel" data-day="8">
+                <div class="day-header">
+                    <div class="day-number">8</div>
+                    <div class="day-info">
+                        <div class="day-title">Wineglass Bay → Richmond</div>
+                        <div class="day-date">Saturday, April 4</div>
+                        <div class="day-route">📍 Bicheno → Freycinet → Wineglass Bay → Richmond</div>
+                    </div>
+                </div>
+                <div class="route-info">
+                    <div class="info-badge">
+                        <span>🛣️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="8" data-badge="badge0">~200 km</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>🥾</span>
+                        <span contenteditable="true" class="editable-badge" data-day="8" data-badge="badge1">11 km hike</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⏱️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="8" data-badge="badge2">5 hours hiking</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="8" data-field="time1">8:00am</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="8" data-field="act1">Depart Bicheno</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="8" data-field="time2">9:30am-2:30pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="8" data-field="act2"><strong>Wineglass Bay Beach Hike</strong> - 11km return, moderate. Steep climb to Lookout (45 min) → Iconic photo → Descend to beach (45 min) → Beach time, swim, lunch → Climb back (1 hr) → Return (45 min). <strong>Requires National Parks Pass</strong></span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="8" data-field="time3">3:00-5:00pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="8" data-field="act3">Optional: Honeymoon Bay, Sleepy Bay, Coles Bay town exploration</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="8" data-field="time4">Evening</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="8" data-field="act4">Ride to Richmond via scenic route (~140km, 2 hours)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                </div>
+                <div class="day-controls">
+                    <button class="add-line-btn" onclick="addLine(8)">➕ Add Activity</button>
+                </div>
+                <div class="inline-booking hotel-booking">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <input type="checkbox" id="night8" class="booking-checkbox" data-night="8">
+                        <label for="night8" style="flex: 1; cursor: pointer;">
+                            <div style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">🏨 Night 8 Accommodation - HOTEL</div>
+                            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span contenteditable="true" class="editable-field hotel-field" data-night="8" data-field="hotel">Prospect Country House, Richmond</span>
+                                <span style="color: #f39c12; font-weight: 500;">25km from airport - AUD $180-250</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 9 -->
+            <div class="day-card " data-day="9">
+                <div class="day-header">
+                    <div class="day-number">9</div>
+                    <div class="day-info">
+                        <div class="day-title">Richmond → Hobart Airport → Devonport</div>
+                        <div class="day-date">Sunday, April 5</div>
+                        <div class="day-route">📍 Richmond → Airport → Devonport Ferry</div>
+                    </div>
+                </div>
+                <div class="route-info">
+                    <div class="info-badge">
+                        <span>🛣️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="9" data-badge="badge0">~290 km solo</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>⏱️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="9" data-badge="badge1">3.5 hours</span>
+                    </div>
+                    <div class="info-badge">
+                        <span>✈️</span>
+                        <span contenteditable="true" class="editable-badge" data-day="9" data-badge="badge2">Wife flies Sydney</span>
+                    </div>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="9" data-field="time1">9:30am</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="9" data-field="act1">Depart Prospect Country House (25km to airport, 30 min)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="9" data-field="time2">10:00-11:00am</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="9" data-field="act2">Drop wife at Hobart Airport for 12:45pm flight to Sydney</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="9" data-field="time3">11:00am-2:30pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="9" data-field="act3"><strong>Solo ride:</strong> Hobart Airport → Devonport via A1 Midland Highway (~265km, 3.5 hours)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="9" data-field="time4">6:00pm</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="9" data-field="act4">Arrive Devonport for ferry check-in</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                    <div class="timeline-item">
+                        <span contenteditable="true" class="editable-time time" data-day="9" data-field="time5">18:45</span>
+                        <span contenteditable="true" class="editable-activity activity" data-day="9" data-field="act5"><strong>Ferry departs Devonport</strong> - Overnight to Geelong (arrives 6:00am Monday April 6)</span>
+                        <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                    </div>
+                </div>
+                <div class="day-controls">
+                    <button class="add-line-btn" onclick="addLine(9)">➕ Add Activity</button>
+                </div>
+            </div>
+
+            <!-- Important Info -->
+            <div class="info-section" style="background: #fff3e0; border-left-color: #ff9800;">
+                <h3 style="color: #e65100;">⚠️ Critical Reminders</h3>
+                <ul style="line-height: 2; margin-left: 20px; margin-top: 10px;">
+                    <li><strong>🎫 National Parks Pass:</strong> Required for Russell Falls, Cape Bruny Lighthouse, Cradle Mountain, Freycinet/Wineglass Bay</li>
+                    <li><strong>⛴️ Bruny Island Ferry:</strong> Last reliable ferry 7:00pm. Must arrive Kettering by 6:00-6:20pm Day 1</li>
+                    <li><strong>🚌 Cradle Mountain Shuttle:</strong> Vehicle access limited during operating hours. Shuttle required</li>
+                    <li><strong>⛽ Fuel Strategy:</strong> Fill at major towns: Strahan, Queenstown, Launceston, St Helens</li>
+                    <li><strong>🌧️ Weather:</strong> Late March/April = autumn, 10-20°C, potential rain. Pack waterproofs!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ⚙️ CONFIGURATION - PASTE YOUR GOOGLE APPS SCRIPT URL HERE
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw5ppBMbChwXlavW3NIW6XoOdIro9yFUySVohiy8kjjf9Q5Gis_y4xmA5NVv1wUCHcBBw/exec';
+        
+        let lineCounter = 1000;
+        let isSyncing = false;
+        
+        // Cloud sync functions
+        async function cloudSave(data) {
+            if (!SCRIPT_URL || SCRIPT_URL === 'PASTE_YOUR_SCRIPT_URL_HERE') {
+                console.warn('Google Apps Script URL not configured - using localStorage only');
+                localStorage.setItem('tasmaniaEnhancedDiary', JSON.stringify(data));
+                return;
+            }
+            
+            try {
+                isSyncing = true;
+                const response = await fetch(SCRIPT_URL + '?action=save', {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                if (result.status === 'success') {
+                    console.log('✅ Synced to cloud:', result.timestamp);
+                    // Also save to localStorage as backup
+                    localStorage.setItem('tasmaniaEnhancedDiary', JSON.stringify(data));
+                } else {
+                    console.error('❌ Cloud sync failed:', result.message);
+                    // Fallback to localStorage
+                    localStorage.setItem('tasmaniaEnhancedDiary', JSON.stringify(data));
+                }
+            } catch (error) {
+                console.error('❌ Cloud sync error:', error);
+                // Fallback to localStorage
+                localStorage.setItem('tasmaniaEnhancedDiary', JSON.stringify(data));
+            } finally {
+                isSyncing = false;
+            }
+        }
+        
+        async function cloudLoad() {
+            if (!SCRIPT_URL || SCRIPT_URL === 'PASTE_YOUR_SCRIPT_URL_HERE') {
+                console.warn('Google Apps Script URL not configured - using localStorage only');
+                const saved = localStorage.getItem('tasmaniaEnhancedDiary');
+                return saved ? JSON.parse(saved) : null;
+            }
+            
+            try {
+                const response = await fetch(SCRIPT_URL + '?action=load');
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    console.log('✅ Loaded from cloud');
+                    // Also save to localStorage as cache
+                    localStorage.setItem('tasmaniaEnhancedDiary', JSON.stringify(result.data));
+                    return result.data;
+                } else {
+                    console.error('❌ Cloud load failed:', result.message);
+                    // Fallback to localStorage
+                    const saved = localStorage.getItem('tasmaniaEnhancedDiary');
+                    return saved ? JSON.parse(saved) : null;
+                }
+            } catch (error) {
+                console.error('❌ Cloud load error:', error);
+                // Fallback to localStorage
+                const saved = localStorage.getItem('tasmaniaEnhancedDiary');
+                return saved ? JSON.parse(saved) : null;
+            }
+        }
+        
+        // Add new timeline item
+        function addLine(day) {
+            const dayCard = document.querySelector(`.day-card[data-day="${day}"]`);
+            const container = dayCard.querySelector('.timeline-container');
+            
+            const newLine = document.createElement('div');
+            newLine.className = 'timeline-item';
+            newLine.innerHTML = `
+                <span contenteditable="true" class="editable-time time" data-day="${day}" data-field="time${lineCounter}">New Time</span>
+                <span contenteditable="true" class="editable-activity activity" data-day="${day}" data-field="act${lineCounter}">Click to add new activity...</span>
+                <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+            `;
+            
+            container.appendChild(newLine);
+            lineCounter++;
+            
+            attachEditListeners();
+            saveData();
+            showSaveIndicator();
+        }
+        
+        // Delete timeline item
+        function deleteLine(button) {
+            if (confirm('Delete this activity?')) {
+                button.parentElement.remove();
+                saveData();
+                showSaveIndicator();
+            }
+        }
+        
+        // Attach edit listeners to all editable elements
+        function attachEditListeners() {
+            const editableFields = document.querySelectorAll('[contenteditable="true"]');
+            editableFields.forEach(field => {
+                field.removeEventListener('blur', handleSave);
+                field.removeEventListener('input', handleSave);
+                field.addEventListener('blur', handleSave);
+                field.addEventListener('input', handleSave);
+            });
+        }
+        
+        function handleSave() {
+            saveData();
+            showSaveIndicator();
+        }
+        
+        // Save all data
+        async function saveData() {
+            const data = {};
+            
+            // Save all editable fields
+            const editableFields = document.querySelectorAll('[contenteditable="true"]');
+            editableFields.forEach((field, index) => {
+                const day = field.getAttribute('data-day');
+                const fieldName = field.getAttribute('data-field');
+                const night = field.getAttribute('data-night');
+                const badge = field.getAttribute('data-badge');
+                
+                let key;
+                if (day && fieldName) {
+                    key = `day${day}_${fieldName}`;
+                } else if (night && fieldName) {
+                    key = `night${night}_${fieldName}`;
+                } else if (day && badge) {
+                    key = `day${day}_${badge}`;
+                } else {
+                    key = `field_${index}`;
+                }
+                
+                if (key) {
+                    data[key] = field.innerHTML;
+                }
+            });
+            
+            // Save timeline structures for each day
+            const days = document.querySelectorAll('.day-card[data-day]');
+            days.forEach(dayCard => {
+                const dayNum = dayCard.getAttribute('data-day');
+                const timelineItems = dayCard.querySelectorAll('.timeline-item');
+                const lineData = [];
+                
+                timelineItems.forEach(item => {
+                    const timeField = item.querySelector('.editable-time');
+                    const actField = item.querySelector('.editable-activity');
+                    if (timeField && actField) {
+                        lineData.push({
+                            time: timeField.innerHTML,
+                            timeField: timeField.getAttribute('data-field'),
+                            activity: actField.innerHTML,
+                            actField: actField.getAttribute('data-field')
+                        });
+                    }
+                });
+                
+                data[`day${dayNum}_structure`] = JSON.stringify(lineData);
+            });
+            
+            // Save to cloud (falls back to localStorage if cloud fails)
+            await cloudSave(data);
+        }
+        
+        // Load saved data
+        async function loadSavedData() {
+            const data = await cloudLoad();
+            if (!data) return;
+            
+            // Restore timeline structures first
+            const days = document.querySelectorAll('.day-card[data-day]');
+            days.forEach(dayCard => {
+                const dayNum = dayCard.getAttribute('data-day');
+                const structureKey = `day${dayNum}_structure`;
+                
+                if (data[structureKey]) {
+                    const structure = JSON.parse(data[structureKey]);
+                    const container = dayCard.querySelector('.timeline-container');
+                    container.innerHTML = '';
+                    
+                    structure.forEach(line => {
+                        const newLine = document.createElement('div');
+                        newLine.className = 'timeline-item';
+                        newLine.innerHTML = `
+                            <span contenteditable="true" class="editable-time time" data-day="${dayNum}" data-field="${line.timeField}">${line.time}</span>
+                            <span contenteditable="true" class="editable-activity activity" data-day="${dayNum}" data-field="${line.actField}">${line.activity}</span>
+                            <button class="delete-btn" onclick="deleteLine(this)" title="Delete this line">×</button>
+                        `;
+                        container.appendChild(newLine);
+                    });
+                }
+            });
+            
+            // Then restore all field values
+            const editableFields = document.querySelectorAll('[contenteditable="true"]');
+            editableFields.forEach((field, index) => {
+                const day = field.getAttribute('data-day');
+                const fieldName = field.getAttribute('data-field');
+                const night = field.getAttribute('data-night');
+                const badge = field.getAttribute('data-badge');
+                
+                let key;
+                if (day && fieldName) {
+                    key = `day${day}_${fieldName}`;
+                } else if (night && fieldName) {
+                    key = `night${night}_${fieldName}`;
+                } else if (day && badge) {
+                    key = `day${day}_${badge}`;
+                } else {
+                    key = `field_${index}`;
+                }
+                
+                if (key && data[key]) {
+                    field.innerHTML = data[key];
+                }
+            });
+            
+            attachEditListeners();
+        }
+        
+        // Checkbox handling
+        function updateBookingCount() {
+            const checkboxes = document.querySelectorAll('.booking-checkbox');
+            const checked = document.querySelectorAll('.booking-checkbox:checked').length;
+            document.getElementById('nights-booked').textContent = checked;
+            
+            const states = {};
+            checkboxes.forEach(cb => {
+                states[cb.id] = cb.checked;
+            });
+            localStorage.setItem('tasmaniaBookingsEnhanced', JSON.stringify(states));
+        }
+        
+        // Load checkbox states
+        function loadCheckboxStates() {
+            const savedStates = localStorage.getItem('tasmaniaBookingsEnhanced');
+            if (savedStates) {
+                const states = JSON.parse(savedStates);
+                const checkboxes = document.querySelectorAll('.booking-checkbox');
+                checkboxes.forEach(cb => {
+                    if (states[cb.id]) {
+                        cb.checked = true;
+                    }
+                });
+            }
+        }
+        
+        // Show save indicator
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 1500);
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedData();
+            loadCheckboxStates();
+            updateBookingCount();
+            attachEditListeners();
+            
+            const checkboxes = document.querySelectorAll('.booking-checkbox');
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', updateBookingCount);
+            });
+        });
+    </script>
+</body>
+</html>
