@@ -1235,7 +1235,7 @@
         
         // Cloud sync functions
         async function cloudSave(data) {
-            if (!SCRIPT_URL || SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbw5ppBMbChwXlavW3NIW6XoOdIro9yFUySVohiy8kjjf9Q5Gis_y4xmA5NVv1wUCHcBBw/exec') {
+            if (!SCRIPT_URL || SCRIPT_URL === 'PASTE_YOUR_SCRIPT_URL_HERE') {
                 console.warn('Google Apps Script URL not configured - using localStorage only');
                 localStorage.setItem('tasmaniaEnhancedDiary', JSON.stringify(data));
                 return;
