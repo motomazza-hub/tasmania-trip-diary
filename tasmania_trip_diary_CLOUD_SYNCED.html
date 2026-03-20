@@ -1268,7 +1268,7 @@
         }
         
         async function cloudLoad() {
-            if (!SCRIPT_URL || SCRIPT_URL === 'PASTE_YOUR_SCRIPT_URL_HERE') {
+            if (!SCRIPT_URL || SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbw5ppBMbChwXlavW3NIW6XoOdIro9yFUySVohiy8kjjf9Q5Gis_y4xmA5NVv1wUCHcBBw/exec') {
                 console.warn('Google Apps Script URL not configured - using localStorage only');
                 const saved = localStorage.getItem('tasmaniaEnhancedDiary');
                 return saved ? JSON.parse(saved) : null;
